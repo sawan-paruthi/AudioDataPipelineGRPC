@@ -1,0 +1,44 @@
+syntax = "proto3";
+package odservice;
+
+message ImageRequest {
+  bytes image_file = 1;
+  string model = 2;
+}
+
+message ImageResponse {
+  bool success = 1;  // Whether the upload was successful
+  string message = 2;  // A response message from the server
+  float process_time = 3;
+  float throughput = 4;
+  float power = 5;
+  float cpu_utilized = 6;
+  float memory_utilized = 7;
+}
+
+message LogEntry {
+  bool success = 1;
+  string message = 2;
+  string service_name = 3;
+  string ip_address = 4;
+  float process_time = 5;
+  float grpc_response_time = 6;
+  float total_response_time = 7;
+  float throughput = 8;
+  float power = 9;
+  float cpu_utilized = 10;
+  float memory_utilized = 11;
+}
+
+message LogResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+service OdService {
+  // Upload the image file using client streaming.
+  rpc UploadImage(stream ImageRequest) returns (ImageResponse) {}
+
+  rpc SendLogEntry(LogEntry) returns (LogResponse) {}
+
+}
