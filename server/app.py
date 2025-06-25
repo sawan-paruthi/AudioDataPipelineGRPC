@@ -32,7 +32,7 @@ class OdService(odservice_pb2_grpc.OdServiceServicer):
         inbound_path = os.path.abspath("inbound")
         # print(f"inbound path is {inbound_path}")
         os.makedirs(inbound_path, exist_ok=True)
-        file_path = os.path.join(inbound_path, "received_image.jpg")
+        file_path = os.path.join(inbound_path, "received_image.wav")
 
         with open(file_path, 'wb') as f:
             f.write(total_data)
