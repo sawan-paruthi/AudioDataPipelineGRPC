@@ -8,6 +8,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "protobuffs"))
 from protobuffs import odservice_pb2, odservice_pb2_grpc
 from ImageProcessor import ImageProcessor
 import argparse
+import time
 load_dotenv()
 
 
@@ -54,8 +55,10 @@ class OdService(odservice_pb2_grpc.OdServiceServicer):
     
     
     async def SendLogEntry(self, log_message, context):
+        st = time.perf_counter()
         success, log_status = self.image_processor.add_logs(log_message)
-        
+        et = time.perf_counter()
+        print(f"Time take for DB req: {et-st:.4f} sec")
         if success:
         # Return a success response
             logging.info("App: Logs saved to DB", exc_info=False)

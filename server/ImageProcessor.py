@@ -118,13 +118,6 @@ class ImageProcessor:
             logging.error("ImageProcessor: Failed to add csv", exc_info=False)
             errors.append(f"add_to_csv: {e}")
 
-        # Handle frontend string generation
-        try:
-            log_entry_string = self.log_entry.get_frontend_string(log_message)
-        except Exception as e:
-            errors.append(f"get_frontend_string: {e}")
-            log_entry_string = "N/A"
-
         # Set final status
         if errors:
             success = False
